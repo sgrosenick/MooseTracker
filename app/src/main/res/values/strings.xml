@@ -3,5 +3,4 @@
     <string name="title_activity_maps">Anchorage Moose Tracker</string>
     <string name="create_sighting">Create Moose Sighting</string>
     <string name="get_location">Set Moose Location</string>
-    <string name="create_sighting">Create Moose Sighting</string>
 </resources>
