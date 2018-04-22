@@ -52,12 +52,17 @@ public class ChooseLocation extends FragmentActivity implements OnMapReadyCallba
                 if (marker != null) {
                     marker.remove();
                 }
+                Double lat = latLng.latitude;
+                Double lon = latLng.longitude;
+
+                String latString = Double.toString(lat);
+                String lonString = Double.toString(lon);
 
                 //This creates a marker
                 MarkerOptions options = new MarkerOptions()
                         .position(latLng)
                         .title("Moose")
-                        .snippet("There is a moose here");
+                        .snippet("Latitude: " + latString + "Longitude: " + lonString);
                 marker = mMap.addMarker(options);
             }
         });
