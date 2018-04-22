@@ -36,6 +36,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".CreateSighting"
+            android:label="@string/create_sighting"
+            android:parentActivityName=".MapsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MapsActivity" />
+        </activity>
+
+        <activity
+            android:name=".ChooseLocation"
+            android:label="@string/get_location"
+            android:parentActivityName=".CreateSighting" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CreateSighting" />
+        </activity>
     </application>
 
 </manifest>
