@@ -53,6 +53,7 @@ public class ChooseLocation extends FragmentActivity implements OnMapReadyCallba
                     marker.remove();
                 }
 
+                //This creates a marker
                 MarkerOptions options = new MarkerOptions()
                         .position(latLng)
                         .title("Moose")
