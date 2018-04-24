@@ -33,15 +33,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String count, String description ) {
+    public boolean insertData(String count, String description, String latitude, String longitude) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Col_2, count);
         contentValues.put(Col_3, description);
+        contentValues.put(Col_4, latitude);
+        contentValues.put(Col_5, longitude);
         long result = db.insert(TABLE_NAME, null, contentValues);
-        if(result ==-1)
+        if (result == -1) {
             return false;
-        else;
-        return true;
+        } else {
+            return true;
+        }
     }
 }
