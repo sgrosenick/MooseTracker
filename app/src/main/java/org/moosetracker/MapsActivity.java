@@ -25,9 +25,7 @@ public class MapsActivity extends AppCompatActivity {
         // This creates our database
         myDb = new DatabaseHelper(this);
 
-        editCount = (EditText)findViewById(R.id.editText_count);
-        editDescription = (EditText)findViewById(R.id.editText_description);
-        mCreateSighting = (Button)findViewById(R.id.button_add);
+
 
         mCreateSighting = (Button) findViewById(R.id.create_sighting_button);
         mCreateSighting.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +49,9 @@ public class MapsActivity extends AppCompatActivity {
                         else
                             Toast.makeText(MapsActivity.this,"Data Not Inserted", Toast.LENGTH_LONG).show();
 
-
+                        editCount = (EditText)findViewById(R.id.moose_count);
+                        editDescription = (EditText)findViewById(R.id.description);
+                        mCreateSighting = (Button)findViewById(R.id.choose_location_button);
                     }
                 }
         );
