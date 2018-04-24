@@ -3,6 +3,6 @@
     <string name="title_activity_maps">Anchorage Moose Tracker</string>
     <string name="create_sighting">Create Moose Sighting</string>
     <string name="get_location">Set Moose Location</string>
-    <string name="latitude_text">Latitude</string>
+    <string name="latitude_text">Latitudes</string>
     <string name="longitude_text">Longitude</string>
 </resources>
