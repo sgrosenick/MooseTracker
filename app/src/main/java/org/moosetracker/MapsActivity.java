@@ -9,10 +9,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class MapsActivity extends AppCompatActivity {
 
-    //DatabaseHelper myDb;
+    DatabaseHelper myDb;
+    EditText editCount, editDescription;
     private Button mCreateSighting;
 
     @Override
@@ -20,7 +23,11 @@ public class MapsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // This creates our database
-        //myDb = new DatabaseHelper(this);
+        myDb = new DatabaseHelper(this);
+
+        editCount = (EditText)findViewById(R.id.editText_count);
+        editDescription = (EditText)findViewById(R.id.editText_description);
+        mCreateSighting = (Button)findViewById(R.id.button_add);
 
         mCreateSighting = (Button) findViewById(R.id.create_sighting_button);
         mCreateSighting.setOnClickListener(new View.OnClickListener() {
@@ -32,4 +39,21 @@ public class MapsActivity extends AppCompatActivity {
         });
     }
 
+    public void AddData() {
+        mCreateSighting.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v){
+                        boolean isInserted = myDb.insertData(editCount.getText().toString(),
+                                editDescription.getText().toString() );
+                        if(isInserted=true)
+                            Toast.makeText(MapsActivity.this,"Data Inserted", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(MapsActivity.this,"Data Not Inserted", Toast.LENGTH_LONG).show();
+
+
+                    }
+                }
+        );
+    }
 }
