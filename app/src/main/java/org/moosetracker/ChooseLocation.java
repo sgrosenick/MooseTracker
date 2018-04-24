@@ -2,11 +2,15 @@ package org.moosetracker;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.GeolocationPermissions;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,15 +21,40 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 
+import org.w3c.dom.Text;
+
 public class ChooseLocation extends FragmentActivity implements OnMapReadyCallback {
 
+    public String latString;
+    public String lonString;
+    public String latStringFormat;
+    public String lonStringFormat;
     private GoogleMap mMap;
     private Marker marker;
+    private Button mSetLocationButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_location);
+
+
+        mSetLocationButton = (Button) findViewById(R.id.set_location_button);
+        mSetLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Store latitude and longitude for use in CreateSighting Activity
+                SharedPreferences mSharedPreferences = getSharedPreferences("LatLon", MODE_PRIVATE);
+                SharedPreferences.Editor mEditor = mSharedPreferences.edit();
+                mEditor.putString("lat", latStringFormat);
+                mEditor.putString("lon", lonStringFormat);
+                mEditor.apply();
+
+                Intent intent = new Intent(ChooseLocation.this, CreateSighting.class);
+                startActivity(intent);
+            }
+        });
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -55,22 +84,24 @@ public class ChooseLocation extends FragmentActivity implements OnMapReadyCallba
                 Double lat = latLng.latitude;
                 Double lon = latLng.longitude;
 
-                String latString = Double.toString(lat);
-                String lonString = Double.toString(lon);
+                // Format for display in snippet
+                latStringFormat = String.format("%.2f", lat);
+                lonStringFormat = String.format("%.2f", lon);
 
                 //This creates a marker
                 MarkerOptions options = new MarkerOptions()
                         .position(latLng)
-                        .title("Moose")
-                        .snippet("Latitude: " + latString + "Longitude: " + lonString);
+                        .title("Moose Location")
+                        .snippet("Latitude: " + latStringFormat + ", Longitude: " + lonStringFormat);
                 marker = mMap.addMarker(options);
+                mSetLocationButton.setVisibility(View.VISIBLE);
             }
         });
 
-        // Add a marker in Anchorage and move the camera
-        LatLng anchorage = new LatLng(61.2181, -149.9003);
-        mMap.addMarker(new MarkerOptions().position(anchorage).title("Anchorage!"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(anchorage, 7));
+        // Move the camera to Anchorage
+        LatLng anchorage = new LatLng(61.165374, -149.904544);
+        //mMap.addMarker(new MarkerOptions().position(anchorage).title("Anchorage!"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(anchorage, 11));
     }
 
 }
