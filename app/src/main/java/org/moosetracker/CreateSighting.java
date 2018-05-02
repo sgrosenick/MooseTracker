@@ -18,14 +18,14 @@ public class CreateSighting extends Activity {
     DatabaseHelper myDB;
     private EditText mMooseCount;
     private EditText mDescription;
-    private LinearLayout mLatitudeLayout;
-    private LinearLayout mLongitudeLayout;
     private TextView mLatitude;
     private TextView mLongitude;
     private Button mSubmitSighting;
     private Button mChooseLocation;
     private String latValue;
     private String lonValue;
+    private String latValueClear;
+    private String lonValueClear;
 
 
     @Override
@@ -36,24 +36,27 @@ public class CreateSighting extends Activity {
 
         final SharedPreferences mSharedPreferences = getSharedPreferences("LatLon", MODE_PRIVATE);
 
+        latValue = mSharedPreferences.getString("lat", "Latitude");
+        lonValue = mSharedPreferences.getString("lon", "Longitude");
+
         mMooseCount = (EditText) findViewById(R.id.moose_count);
         mDescription = (EditText) findViewById(R.id.description);
-        mLatitudeLayout = (LinearLayout) findViewById(R.id.latitude);
-        mLongitudeLayout = (LinearLayout) findViewById(R.id.longitude);
         mLatitude = (TextView) findViewById(R.id.latitude_text);
         mLongitude = (TextView) findViewById(R.id.longitude_text);
+
+
 
         mSubmitSighting = (Button) findViewById(R.id.submit_sighting_button);
         mSubmitSighting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Clear form
+                SharedPreferences.Editor editor = mSharedPreferences.edit();
+                editor.clear().commit();
 
-                mLatitudeLayout.setVisibility(View.GONE);
-                mLongitudeLayout.setVisibility(View.GONE);
-
-                SharedPreferences clearPref = getSharedPreferences("LatLon", MODE_PRIVATE);
-                clearPref.edit().clear().commit();
+                latValueClear = mSharedPreferences.getString("lat", "Latitude");
+                lonValueClear = mSharedPreferences.getString("lon", "Longitude");
+                setLatLon(latValueClear, lonValueClear);
             }
         });
 
@@ -67,24 +70,22 @@ public class CreateSighting extends Activity {
             }
         });
 
-        latValue = mSharedPreferences.getString("lat", "Latitude");
-        lonValue = mSharedPreferences.getString("lon", "Longitude");
+        setLatLon(latValue, lonValue);
+        //addData();
+    }
 
-        if (latValue.length() > 0) {
-            mLatitudeLayout.setVisibility(View.VISIBLE);
-            mLatitude.setText("Latitude: " + latValue);
+    public void setLatLon(String lat, String lon) {
+        if (lat.length() > 0) {
+            mLatitude.setText("Latitude: " + lat);
         } else {
-            mLatitude.setText("Latitude");
+            mLatitude.setText("Set Location to add Latitude");
         }
 
-        if (lonValue.length() > 0) {
-            mLongitudeLayout.setVisibility(View.VISIBLE);
-            mLongitude.setText("Longitude: " + lonValue);
+        if (lon.length() > 0) {
+            mLongitude.setText("Longitude: " + lon);
         } else {
-            mLongitude.setText("Longitude");
+            mLongitude.setText("Set Location to add Longitude");
         }
-
-        addData();
     }
 
     public void addData() {
