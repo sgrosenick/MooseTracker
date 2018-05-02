@@ -2,6 +2,7 @@ package org.moosetracker;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -24,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, Count Integer, String Text, Latitude Double, Longitude Double, Timestamp Date )");
+        db.execSQL("create table " + TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, Count Integer, Description Text, Latitude Text, Longitude Text, Timestamp Text)");
 
     }
 
@@ -34,18 +35,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String count, String description, String latitude, String longitude) {
+    public boolean addData(String count, String description, String latitude, String longitude, String timestamp) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Col_2, count);
         contentValues.put(Col_3, description);
         contentValues.put(Col_4, latitude);
         contentValues.put(Col_5, longitude);
+        contentValues.put(Col_6, timestamp);
         long result = db.insert(TABLE_NAME, null, contentValues);
         if (result == -1) {
             return false;
         } else {
             return true;
         }
+    }
+
+    public Cursor viewData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        return data;
     }
 }
