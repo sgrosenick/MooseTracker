@@ -24,7 +24,10 @@ public class MapsActivity extends AppCompatActivity {
         // This creates our database
         myDb = new DatabaseHelper(this);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> ec1c05dd61908bd5f85e84f106241be6fffe7448
 
 
 >>>>>>> ec1c05dd61908bd5f85e84f106241be6fffe7448
