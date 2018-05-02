@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 public class MapsActivity extends AppCompatActivity {
 
-    //DatabaseHelper myDb;
+    DatabaseHelper myDb;
     private Button mCreateSighting;
 
     @Override
@@ -22,9 +22,7 @@ public class MapsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // This creates our database
-        //myDb = new DatabaseHelper(this);
-
-
+        myDb = new DatabaseHelper(this);
 
         mCreateSighting = (Button) findViewById(R.id.create_sighting_button);
         mCreateSighting.setOnClickListener(new View.OnClickListener() {
@@ -35,4 +33,6 @@ public class MapsActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
