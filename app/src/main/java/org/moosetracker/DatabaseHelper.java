@@ -34,7 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String count, String description, String latitude, String longitude) {
+    public boolean addData(String count, String description, String latitude, String longitude) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Col_2, count);

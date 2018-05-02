@@ -93,7 +93,7 @@ public class CreateSighting extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted = myDB.insertData(mMooseCount.getText().toString(),
+                        boolean isInserted = myDB.addData(mMooseCount.getText().toString(),
                                 mDescription.getText().toString(),
                                 latValue,
                                 lonValue);

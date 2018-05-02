@@ -17,20 +17,13 @@ public class MapsActivity extends AppCompatActivity {
     DatabaseHelper myDb;
     private Button mCreateSighting;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // This creates our database
         myDb = new DatabaseHelper(this);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> ec1c05dd61908bd5f85e84f106241be6fffe7448
-
-
->>>>>>> ec1c05dd61908bd5f85e84f106241be6fffe7448
 
         mCreateSighting = (Button) findViewById(R.id.create_sighting_button);
         mCreateSighting.setOnClickListener(new View.OnClickListener() {
