@@ -29,6 +29,7 @@ public class ChooseLocation extends FragmentActivity implements OnMapReadyCallba
     public String lonString;
     public String latStringFormat;
     public String lonStringFormat;
+    private TextView mSetLocationInstruct;
     private GoogleMap mMap;
     private Marker marker;
     private Button mSetLocationButton;
@@ -39,6 +40,8 @@ public class ChooseLocation extends FragmentActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_location);
 
+
+        mSetLocationInstruct = (TextView) findViewById(R.id.set_location_instruct);
 
         mSetLocationButton = (Button) findViewById(R.id.set_location_button);
         mSetLocationButton.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +84,7 @@ public class ChooseLocation extends FragmentActivity implements OnMapReadyCallba
                 if (marker != null) {
                     marker.remove();
                 }
+                //Get latitude and longitude
                 Double lat = latLng.latitude;
                 Double lon = latLng.longitude;
 
@@ -94,6 +98,7 @@ public class ChooseLocation extends FragmentActivity implements OnMapReadyCallba
                         .title("Moose Location")
                         .snippet("Latitude: " + latStringFormat + ", Longitude: " + lonStringFormat);
                 marker = mMap.addMarker(options);
+                mSetLocationInstruct.setVisibility(View.GONE);
                 mSetLocationButton.setVisibility(View.VISIBLE);
             }
         });
