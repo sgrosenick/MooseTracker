@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.GeolocationPermissions;
 import android.widget.Button;
@@ -23,10 +24,8 @@ import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 
 import org.w3c.dom.Text;
 
-public class ChooseLocation extends FragmentActivity implements OnMapReadyCallback {
+public class ChooseLocation extends AppCompatActivity implements OnMapReadyCallback {
 
-    public String latString;
-    public String lonString;
     public String latStringFormat;
     public String lonStringFormat;
     private TextView mSetLocationInstruct;
