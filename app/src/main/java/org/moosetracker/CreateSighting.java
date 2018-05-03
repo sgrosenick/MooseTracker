@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,8 +16,11 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class CreateSighting extends Activity {
+
+public class CreateSighting extends AppCompatActivity {
     DatabaseHelper myDB;
     private EditText mMooseCount;
     private EditText mDescription;
@@ -25,6 +29,8 @@ public class CreateSighting extends Activity {
     private Button mSubmitSighting;
     private Button mChooseLocation;
     private Button mViewData;
+    private String mooseCountString;
+    private String descriptionString;
     private String latValue;
     private String lonValue;
     private String latValueClear;
@@ -47,6 +53,7 @@ public class CreateSighting extends Activity {
         mDescription = (EditText) findViewById(R.id.description);
         mLatitude = (TextView) findViewById(R.id.latitude_text);
         mLongitude = (TextView) findViewById(R.id.longitude_text);
+
 
         mViewData = (Button) findViewById(R.id.view_data);
 
@@ -73,18 +80,39 @@ public class CreateSighting extends Activity {
             }
         });
 
-
         mChooseLocation = (Button) findViewById(R.id.choose_location_button);
         mChooseLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(CreateSighting.this, ChooseLocation.class);
                 startActivity(intent);
             }
         });
 
+        if (savedInstanceState != null) {
+            String count = savedInstanceState.getString("count");
+            mMooseCount.setText(count);
+
+            String desctiption = savedInstanceState.getString("description");
+            mDescription.setText(desctiption);
+
+        }
+
         setLatLon(latValue, lonValue);
         ViewData();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        mooseCountString = mMooseCount.getText().toString();
+        descriptionString = mDescription.getText().toString();
+
+        outState.putString("count", mooseCountString);
+        outState.putString("description", descriptionString);
+
     }
 
     public void setLatLon(String lat, String lon) {
@@ -108,8 +136,11 @@ public class CreateSighting extends Activity {
             String latString = latValue.toString();
             String lonString = lonValue.toString();
 
-            Long tsLong = System.currentTimeMillis()/1000;
-            String timestamp = tsLong.toString();
+            // Format Timestamp
+            Long tsLong = System.currentTimeMillis();
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyy HH:mm");
+            Date date = new Date(tsLong);
+            String timestamp = sdf.format(date);
 
             boolean insertData = myDB.addData(count, description, latString, lonString, timestamp);
 
@@ -135,9 +166,9 @@ public class CreateSighting extends Activity {
                 StringBuffer buffer = new StringBuffer();
 
                 while (data.moveToNext()) {
-                    buffer.append("Moose Seen:" + data.getString(1) + "\n");
+                    buffer.append("Moose Seen: " + data.getString(1) + "\n");
                     buffer.append("Description: " + data.getString(2) + "\n");
-                    //buffer.append("Timestamp: " + data.getString(6) + "\n");
+                    buffer.append("Timestamp: " + data.getString(5) + "\n");
                     buffer.append("\n");
                 }
 
