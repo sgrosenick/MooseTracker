@@ -73,18 +73,29 @@
         android:id="@+id/choose_location_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
         android:text="@string/get_location"/>
 
     <Button
         android:id="@+id/submit_sighting_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/colorPrimaryDark"
         android:text="@string/submit_sighting_button"/>
 
     <Button
         android:id="@+id/view_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:text="View Data"/>
 
 </LinearLayout>
