@@ -172,7 +172,7 @@ public class CreateSighting extends AppCompatActivity {
                     buffer.append("\n");
                 }
 
-                Display("Data:", buffer.toString());
+                Display("Sightings Submitted:", buffer.toString());
             }
         });
     }
